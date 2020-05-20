@@ -1,8 +1,4 @@
 {
-  "python.linting.pylintEnabled": true,
-  "python.linting.enabled": true,
   "python.pythonPath": "C:\\Users\\gsc22\\.virtualenvs\\serializer-JBjtTPpy\\Scripts\\python.exe",
-  "python.linting.pylintArgs": ["--load-plugins=pylint_django"],
-  "editor.tabsize": 2
-  
+  "python.linting.pylintArgs": ["--load-plugins=pylint_django"]
 }
