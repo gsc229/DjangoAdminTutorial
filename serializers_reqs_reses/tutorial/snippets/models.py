@@ -1,5 +1,7 @@
 from django.db import models
-from pygments.lexers import get_all_lexers
+from pygments.lexers import get_all_lexers, get_lexer_by_name
+from pygments.formatters.html import HtmlFormatter
+from pygments import highlight
 from pygments.styles import get_all_styles
 
 
@@ -19,7 +21,6 @@ class Snippet(models.Model):
 
   class Meta:
     ordering = ['created']
-
 
 """ 
 For the purposes of this tutorial we're going to start by creating a simple Snippet model 
