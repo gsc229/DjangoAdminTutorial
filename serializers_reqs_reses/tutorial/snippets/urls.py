@@ -12,3 +12,4 @@ urlpatterns = [
 
 urlpatterns = format_suffix_patterns(urlpatterns)
 ## What's this? ^^^^^^^  -> https://www.django-rest-framework.org/tutorial/2-requests-and-responses/
+
