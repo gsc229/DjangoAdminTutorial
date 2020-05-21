@@ -42,7 +42,7 @@ class SnippetList(generics.ListCreateAPIView):
 class SnippetDetail(generics.RetrieveUpdateDestroyAPIView):
   queryset = Snippet.objects.all()
   serializer_class = SnippetSerializer  
-  #permission_classes = [permissions.IsAuthenticatedOrReadOnly, IsOwnerOrReadOnly] 
+  permission_classes = [permissions.IsAuthenticatedOrReadOnly, IsOwnerOrReadOnly] 
   
 
 """  GET the a list of all users (ListAPIView) """
