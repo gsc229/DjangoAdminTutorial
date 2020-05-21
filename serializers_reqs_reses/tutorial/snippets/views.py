@@ -27,14 +27,12 @@ class SnippetHighlight(generics.GenericAPIView):
     return Response(snippet.highlighted)
 
 
-
-
 """ GET all, POST   (generics.ListCreateAPIView) """
 class SnippetList(generics.ListCreateAPIView):
   queryset = Snippet.objects.all()
   serializer_class = SnippetSerializer
   """ see notes on this property below """
-  #permission_classes = [permissions.IsAuthenticatedOrReadOnly] 
+  permission_classes = [permissions.IsAuthenticatedOrReadOnly] 
   """ see notes below on this method """
   def perform_create(self, serializer):
     serializer.save(owner=self.request.user)
@@ -44,7 +42,7 @@ class SnippetList(generics.ListCreateAPIView):
 class SnippetDetail(generics.RetrieveUpdateDestroyAPIView):
   queryset = Snippet.objects.all()
   serializer_class = SnippetSerializer  
-  #permission_classes = [permissions.IsAuthenticatedOrReadOnly, IsOwnerOrReadOnly] 
+  permission_classes = [permissions.IsAuthenticatedOrReadOnly, IsOwnerOrReadOnly] 
   
 
 """  GET the a list of all users (ListAPIView) """
