@@ -2,13 +2,15 @@ from rest_framework import serializers
 from snippets.models import Snippet, LANGUAGE_CHOICES, STYLE_CHOICES
 from django.contrib.auth.models import User
 
-class SnippetSerializer(serializers.ModelSerializer):
+""" notes on HyperlinkedModelSerializer:  
+https://www.django-rest-framework.org/tutorial/5-relationships-and-hyperlinked-apis/#hyperlinking-our-api """
+class SnippetSerializer(serializers.HyperlinkedModelSerializer):
   """ This is to associate the snippet with the owner (Also added to Meta class). See the views.py notes: perform_create """
   owner = serializers.ReadOnlyField(source='owner.username')
-
+  highlight = serializers.HyperlinkedIdentityField(view_name='snippet-highlight', format='html')
   class Meta:
     model = Snippet
-    fields = ['id', 'title', 'code', 'linenos', 'language', 'style', 'owner']
+    fields = ['url', 'id', 'title', 'code', 'linenos', 'language', 'style', 'owner', 'highlight']
 
   def create(self, validated_data):
     """
@@ -26,12 +28,12 @@ class SnippetSerializer(serializers.ModelSerializer):
     instance.save()
     return instance
 
-class UserSerializer(serializers.ModelSerializer):
-  snippets = serializers.PrimaryKeyRelatedField(many=True, queryset=Snippet.objects.all())
+class UserSerializer(serializers.HyperlinkedModelSerializer):
+  snippets = serializers.HyperlinkedRelatedField(many=True, view_name='snippet-hightlight', read_only=True)
 
   class Meta:
     model = User
-    fields = ['id', 'username', 'snippets']
+    fields = ['url', 'id', 'username', 'snippets']
   
   
 
