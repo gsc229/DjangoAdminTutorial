@@ -10,7 +10,7 @@ class SnippetSerializer(serializers.HyperlinkedModelSerializer):
   highlight = serializers.HyperlinkedIdentityField(view_name='snippet-highlight', format='html')
   class Meta:
     model = Snippet
-    fields = ['url', 'id', 'title', 'code', 'linenos', 'language', 'style', 'owner', 'highlight']
+    fields = ['url', 'id', 'title', 'code', 'linenos', 'language', 'style', 'owner', 'highlight', 'highlighted', 'created']
 
   def create(self, validated_data):
     """
@@ -19,7 +19,6 @@ class SnippetSerializer(serializers.HyperlinkedModelSerializer):
     return Snippet.objects.create(**validated_data)
 
   def update(self, instance, validated_data):
-
     instance.title = validated_data.get('title', instance.title)
     instance.code = validated_data.get('code', instance.code)
     instance.linenos = validated_data.get('linenos', instance.linenos)
@@ -34,9 +33,6 @@ class UserSerializer(serializers.HyperlinkedModelSerializer):
   class Meta:
     model = User
     fields = ['url', 'id', 'username', 'snippets']
-  
-  
-
 
 """ 
 The first part of the serializer class defines the fields that get serialized/deserialized.
