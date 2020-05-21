@@ -21,10 +21,13 @@ def api_root(request, format=None):
 class SnippetHighlight(generics.GenericAPIView):
   queryset = Snippet.objects.all()
   renderer_classes = [renderers.StaticHTMLRenderer]
-
+  
   def get(self, request, *args, **kwargs):
     snippet = self.get_object()
     return Response(snippet.highlighted)
+
+
+
 
 """ GET all, POST   (generics.ListCreateAPIView) """
 class SnippetList(generics.ListCreateAPIView):
@@ -32,17 +35,18 @@ class SnippetList(generics.ListCreateAPIView):
   serializer_class = SnippetSerializer
   """ see notes on this property below """
   #permission_classes = [permissions.IsAuthenticatedOrReadOnly] 
-  
   """ see notes below on this method """
   def perform_create(self, serializer):
     serializer.save(owner=self.request.user)
   
+
 """ GET single, PUT, DELETE    (RetrieveUpdateDestroyAPIView) """
 class SnippetDetail(generics.RetrieveUpdateDestroyAPIView):
   queryset = Snippet.objects.all()
   serializer_class = SnippetSerializer  
   #permission_classes = [permissions.IsAuthenticatedOrReadOnly, IsOwnerOrReadOnly] 
   
+
 """  GET the a list of all users (ListAPIView) """
 class UserList(generics.ListAPIView):
     queryset = User.objects.all()
